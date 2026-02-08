@@ -1,7 +1,39 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Dash() {
+  const handleLogout = () => {
+    alert("Logged out sucessfully");
+    //later ypu can add navigate ('/login')
+  }
   return (
+    <>
+   {/* NAVBAR */}
+      <nav className="navbar navbar-expand-lg bg-white shadow-sm rounded-pill px-4 mx-3 mt-3">
+        <span className="navbar-brand fw-bold">{localStorage.getItem('nm')}</span>
+
+        <div className="ms-auto d-flex align-items-center gap-3">
+          {/* ROUND CARD ICON */}
+          <div
+            className="rounded-circle d-flex align-items-center justify-content-center text-white"
+            style={{
+              width: 40,
+              height: 40,
+              background: "linear-gradient(135deg,#ff7a18,#ffb347)",
+            }}
+          >
+            💳
+          </div>
+
+          {/* LOGOUT */}
+          <button
+            className="btn btn-outline-dark rounded-pill px-3"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    
     <div className="container py-5">
       {/* Top Cards */}
       <div className="row g-4 mb-4">
@@ -79,28 +111,16 @@ export default function Dash() {
       {/* Payment Method Section */}
       <div className="card border-0 shadow rounded-4 p-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h5 className="fw-bold mb-0">Payment Method</h5>
-          <button className="btn btn-dark rounded-3 px-4">
-            Add New Card
-          </button>
+          <h5 className="fw-bold mb-0">Payment History</h5>
         </div>
 
         <div className="row g-3">
-          <div className="col-md-6">
-            <div className="border rounded-4 p-3 d-flex align-items-center justify-content-between">
-              <span className="fw-bold">Mastercard</span>
-              <span className="fs-5">**** **** **** 7852</span>
-            </div>
-          </div>
+          <div className="col-md-12">
 
-          <div className="col-md-6">
-            <div className="border rounded-4 p-3 d-flex align-items-center justify-content-between">
-              <span className="fw-bold">VISA</span>
-              <span className="fs-5">**** **** **** 5248</span>
-            </div>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }
