@@ -5,8 +5,9 @@ import App from './App.jsx'
 import Login from './Login.jsx'
 import Dash from './Dash.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Dash />
-  </StrictMode>,
+    <App/>
+  </StrictMode>
 )

@@ -1,11 +1,22 @@
 
-
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import Login from './Login';
+import Dash from './Dash';
 function App() {
-
+  
   return (
     <>
+      <Router>
+     
+      <Routes>
       
-      <h1>Expense Manager App</h1>
+        <Route path="/" element={<Login />} />
+        <Route path="/dash" element={<Dash/>} />
+       
+      </Routes>
+    </Router>
+
+      
     </>
   )
 }

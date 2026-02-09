@@ -4,19 +4,78 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
 import logo from "./assets/expences.png";  //set
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 // import'./index.css'
 
 export default function Login(){
+
+  const navigate = useNavigate();
+  const [nm, setNm] = useState('');
+  const [mob, setMob] = useState('0');
+  const [opbl, setOpbal] = useState('0');
+  const [umob, setUMob] = useState('0');
 
     const [show, setShow] = useState(false);
 
   // ================= ADD MODAL HANDLERS =================
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-    let reg=()=>{
-        alert("Signup Here")
+
+  let hndlnm=(e)=>{setNm(e.target.value)}
+  let hndlmob=(e)=>{setMob(e.target.value)}
+  let hndlopbal=(e)=>{setOpbal(e.target.value)}
+    let hndlumob=(e)=>{setUMob(e.target.value)}
+
+    let reg = (e) => {
+  e.preventDefault();   // 🔥 VERY IMPORTANT
+  alert(nm + " " + mob + " " + opbl);
+
+  axios.post("https://codingshika.com/APP/EXP/add_user.php?mobile="
+    +mob+"&uname="+nm+"&opbal="+opbl)
+    .then(res=>{
+      if(res.data.posts.status=="200"){
+        alert("Registerd Success...!")
+        setShow(false)
+      }else{
+        alert ("Failed..!")
+        setShow(false)
+      }
+
+    })
+};
+
+    let login = () => {
+
+ 
+  axios.post(
+    "https://codingshika.com/APP/EXP/user_login.php?mobile=" + umob
+  )
+  .then(res => {
+
+    if(res.data.posts.status == "200"){
+      alert("Login Success...!");
+      console.log("Redirecting...");
+
+      console.log(res.data.posts.id);
+      console.log(res.data.posts.name);
+      localStorage.setItem("id", res.data.posts.id)
+      localStorage.setItem("nm", res.data.posts.name)
+
+
+      navigate('/dash');
+    } 
+    else{
+      alert("Failed..!");
     }
-    
+
+  })
+  .catch(err=>{
+    console.log(err);
+  });
+
+}
     return(
     <div>
 
@@ -28,15 +87,15 @@ export default function Login(){
     
             <Modal.Body>
               <Form.Control
-              type="text"
+              type="text" onChange={hndlnm}
                 placeholder="Enter a Name:" />
                 <br />
               <Form.Control
-              type="number"
+              type="number" onChange={hndlmob}
                 placeholder="Enter a Mobile:" />
                 <br />
                 <Form.Control
-              type="number"
+              type="number" onChange={hndlopbal}
                 placeholder="Opening Balance:" />
                 <br />
     
@@ -44,7 +103,7 @@ export default function Login(){
     
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
-              <Button variant="primary" >Save</Button>
+              <Button variant="primary" onClick={reg} >Save Changes </Button> 
             </Modal.Footer>
           </Modal>
           
@@ -58,15 +117,14 @@ export default function Login(){
           <div className="mb-3">
             <label className="form-label">Mobile Number</label>
             <input
-              type="number"
+              type="number" onChange={hndlumob}
               className="form-control"
               placeholder="Enter mobile number"
             />
           </div>
-          <button className="btn btn-primary w-100">          Login
+          <button className="btn btn-primary w-100" onClick={login} >          Login
         </button>
         <a href="#" onClick={handleShow}>New User? Signup</a>
-
         </div>
       </div>
     </div>
