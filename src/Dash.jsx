@@ -1,10 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { useEffect, useState } from 'react';
+import { AuthContext } from "./AuthContext";
+import { useContext } from "react";
 export default function Dash() {
+    const { user } = useContext(AuthContext);
   const handleLogout = () => {
-    alert("Logged out sucessfully");
+    alert("Logged out successfully");
+
     //later ypu can add navigate ('/login')
   }
+  const [unm,SetUnm]=useState('')
+  //onload
+  useEffect(()=>{
+  
+    alert(unm)
+  },[])
   return (
     <>
    {/* NAVBAR */}
@@ -51,7 +61,8 @@ export default function Dash() {
             <div className="d-flex justify-content-between align-items-end">
               <div>
                 <small className="text-light">Card Holder</small>
-                <h5 className="fw-bold">Sachin Khatavkar</h5>
+               <h5 className="fw-bold">{localStorage.getItem("nm")}</h5>
+
               </div>
 
               <div>
@@ -117,6 +128,11 @@ export default function Dash() {
         <div className="row g-3">
           <div className="col-md-12">
 
+            <div>
+              <h2>Home</h2>
+              <p>ID: {user?.id}</p>
+              <p>Opening Balance: ₹{user?.uname}</p>
+              </div>
           </div>
         </div>
       </div>

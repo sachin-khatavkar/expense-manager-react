@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import logo from "./assets/expences.png";  //set
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { AuthContext } from "./AuthContext";
+import { useContext } from "react";
 // import'./index.css'
 
 export default function Login(){
@@ -27,6 +28,7 @@ export default function Login(){
   let hndlmob=(e)=>{setMob(e.target.value)}
   let hndlopbal=(e)=>{setOpbal(e.target.value)}
     let hndlumob=(e)=>{setUMob(e.target.value)}
+    const { setUser } = useContext(AuthContext);  
 
     let reg = (e) => {
   e.preventDefault();   // 🔥 VERY IMPORTANT
@@ -63,6 +65,10 @@ export default function Login(){
       localStorage.setItem("id", res.data.posts.id)
       localStorage.setItem("nm", res.data.posts.name)
 
+       setUser({
+      id: res.data.posts.id,
+      uname: res.data.posts.name
+    });
 
       navigate('/dash');
     } 
