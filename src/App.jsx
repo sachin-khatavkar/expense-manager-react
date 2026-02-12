@@ -1,5 +1,6 @@
 
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Login from './Login';
 import Dash from './Dash';
 function App() {
